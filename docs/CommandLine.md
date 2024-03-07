@@ -206,3 +206,27 @@ While you can specify to exclude a path outside of the source folder, and it wil
 
 - `DependenSee \Source\SolutionFolder -ExcludeFolders "\Source\SolutionFolder\docs, Source\SolutionFolder\clientapp\node-modules"`  
 - `DependenSee \Source\SolutionFolder -EFol "C:\Source\SolutionFolder\docs, \Source\SolutionFolder\clientapp\node-modules"`
+
+## UseProjectAssetsForDiscovery
+
+Set to `True` to use project.assets.json file to discover dependencies rather than using project file references. Implies -UsePackages.
+
+**Shorthand: `UsePA`**
+
+**Default: `False`**
+
+### Examples
+
+- `DependenSee \Source\SolutionFolder -UsePA`
+
+## DiscoverInboundReferences
+
+Set to `True` to discover inbound rather than outbound references, i.e. discovers packages that depend on the project rather than vice versa
+
+**Shorthand: `Inbound`**
+
+**Default: `False`**
+
+### Examples
+
+- `DependenSee \Source\SolutionFolder -Inbound`
