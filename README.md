@@ -1,5 +1,5 @@
-# DependenSee
-Dotnet project and package dependency visualizer.
+# DependenSee Project Assets Fork
+Dotnet project and package dependency visualizer with support for reading outbound and inbound dependencies from project.asasets.json files.
 
 ---
 
@@ -73,14 +73,14 @@ Keep this in mind and inspect the output if you're distributing the outputs from
  [MIT License](https://github.com/madushans/DependenSee/blob/main/LICENSE)
 
 # Support
-If you are experiencing issues, please [open an issue](https://github.com/madushans/DependenSee/issues) with details and reproduction steps.
+If you are experiencing issues, please [open an issue](https://github.com/mollman/DependenSeeProjectAsssets/issues) with details and reproduction steps.
 
  # Contributions
 
  Pull requests welcome. ♥
 
  Please branch off of `dev` branch and put a PR to `dev` for your changes.
- If you have a contribution you're not sure about, please feel free to [open an issue](https://github.com/madushans/DependenSee/issues). However a prior approval is not necessary for a PR to be merged.
+ If you have a contribution you're not sure about, please feel free to [open an issue](https://github.com/mollman/DependenSeeProjectAssets/issues). However a prior approval is not necessary for a PR to be merged.
 
  Once approved, all pending changes (possibly multiple PRs) will be merged to `main` for a release to be distributed via NuGet.
 
