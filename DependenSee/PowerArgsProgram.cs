@@ -1,5 +1,4 @@
 ﻿namespace DependenSee;
-
 public enum OutputTypes
 {
     [ArgDescription("Creates an html document.")] Html,
@@ -78,28 +77,59 @@ public class PowerArgsProgram
     [ArgShortcut("FReP")]
     public bool FollowReparsePoints { get; set; }
 
+    [ArgDefaultValue(false)]
+    [ArgDescription("Set to discover dependencies via ProjectAssets.json rather than project files")]
+    [ArgShortcut("UsePA")]
+    public bool UseProjectAssetsForDiscovery { get; set; }
+
+    [ArgDefaultValue(false)]
+    [ArgDescription("Set to true to graph inbound references rather than outbound ones")]
+    [ArgShortcut("Inbound")]
+    public bool DiscoverInboundReferences { get; set; }
+
+    public string PackageReferencePrefixString { get; set; }
 
     public void Main()
     {
-        var service = new ReferenceDiscoveryService
+        DiscoveryResult result;
+
+        
+        if (UseProjectAssetsForDiscovery)
         {
-            ExcludePackageNamespaces = ExcludePackageNamespaces,
-            ExcludeProjectNamespaces = ExcludeProjectNamespaces,
-            IncludePackageNamespaces = IncludePackageNamespaces,
-            IncludeProjectNamespaces = IncludeProjectNamespaces,
+            HtmlTitle = DiscoverInboundReferences ? $"Inbound Dependency Graph: {SourceFolder}" : $"Outbound Dependency Graph: {SourceFolder}";
+            var service = new ProjectAssetsDiscoveryService(SourceFolder, true)
+            {
+                ExcludePackageNamespaces = ExcludePackageNamespaces,
+                ExcludeProjectNamespaces = ExcludeProjectNamespaces,
+                IncludePackageNamespaces = IncludePackageNamespaces,
+                IncludeProjectNamespaces = IncludeProjectNamespaces,
+                DiscoverInboundReferences = DiscoverInboundReferences
+            };
 
-            IncludePackages = IncludePackages,
+            result = service.Discover();
+        }
+        else
+        {
+            var service = new ReferenceDiscoveryService
+            {
+                ExcludePackageNamespaces = ExcludePackageNamespaces,
+                ExcludeProjectNamespaces = ExcludeProjectNamespaces,
+                IncludePackageNamespaces = IncludePackageNamespaces,
+                IncludeProjectNamespaces = IncludeProjectNamespaces,
 
-            ExcludeFolders = ExcludeFolders,
-            FollowReparsePoints = FollowReparsePoints,
+                IncludePackages = IncludePackages,
 
-            OutputPath = OutputPath,
-            OutputType = OutputType,
+                ExcludeFolders = ExcludeFolders,
+                FollowReparsePoints = FollowReparsePoints,
 
-            SourceFolder = SourceFolder,
+                OutputPath = OutputPath,
+                OutputType = OutputType,
 
-        };
-        var result = service.Discover();
+                SourceFolder = SourceFolder
+            };
+             result = service.Discover();
+        }
+        
         new ResultWriter().Write(result, OutputType, OutputPath, HtmlTitle);
     }
 }
