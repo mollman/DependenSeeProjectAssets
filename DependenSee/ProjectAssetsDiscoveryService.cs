@@ -126,7 +126,7 @@ namespace DependenSee
                     var tokens = value.Split(',');
                     for (int i=0; i < tokens.Length; ++i)
                     {
-                        _projectIncludes.Add(tokens[i]);
+                        _projectIncludes.Add(tokens[i].Trim());
                     }
                 }
             }
@@ -176,7 +176,7 @@ namespace DependenSee
         }
 
         /// <summary>
-        /// Discovers projects and outbound package references at the root and below if recusrion is enabled
+        /// Discovers projects and outbound package references at the root and below if recursion is enabled
         /// </summary>
         /// <returns><see cref="DiscoveryResult"/> representing the results of the discovery operation.</returns>
         private void DiscoverOutboundPackageRefs(
@@ -240,7 +240,7 @@ namespace DependenSee
             }
         }
         /// <summary>
-        /// Discovers projects and inbound package references at the root and below if recusrion is enabled
+        /// Discovers projects and inbound package references at the root and below if recursion is enabled
         /// </summary>
         /// <returns><see cref="DiscoveryResult"/> representing the results of the discovery operation.</returns>
         private void DiscoverInboundPackageRefs(
